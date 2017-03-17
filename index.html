@@ -28,7 +28,7 @@ input[type=color]{
 }
 
 function toJSON(){
-	 document.getElementById('json').value = JSON.stringify({'square':e('square')});
+	 document.getElementById('json').value = JSON.stringify({'square':e('square'),'triangle':e('triangle')});
    document.getElementById('cmd').value =
    `
    input.execute("net_replace_color 8 ${e('square')}");
