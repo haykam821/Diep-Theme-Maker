@@ -1,47 +1,63 @@
-Squares: <input class='color' id='square' value='#FFE869' type="color"><br>
-Triangles: <input class='color' id='triangle' value='#FA777A' type="color"><br>
-Pentagons: <input class='color' id='pentagon' value='#7790F9' type="color"><br>
-Crashers: <input class='color' id='crasher' value='#EF7BDB' type="color"><br>
+Green Shapes:
+<input data-num='7' class='color' id='green' value='#FFE869' type="color">
+<br> Squares:
+<input data-num='8' class='color' id='square' value='#FFE869' type="color">
+<br> Triangles:
+<input data-num='9' class='color' id='triangle' value='#FA777A' type="color">
+<br> Pentagons:
+<input data-num='10' class='color' id='pentagon' value='#7790F9' type="color">
+<br> Crashers:
+<input data-num='11' class='color' id='crasher' value='#EF7BDB' type="color">
+<br> Leaderboard:
+<input data-num='13' class='color' id='leaderboard' value='#EF7BDB' type="color">
+<br>
 <br>
 <textarea id='json' placeholder="Diep Theme Maker JSON"></textarea><textarea id='cmd' placeholder="Execute Commands"></textarea>
 
 <button onclick='toJSON()'>Export to JSON</button><button>Export to Commands</button>
 
+<script>
+  function e(a) {
+    return document.getElementById(a).value
+  }
+
+  function d(a, b) {
+    return `input.execute("net_replace_color ${a} ${e(b)}");\n`
+  }
+
+  function toJSON() {
+    var obj = {}
+    var execu = ''
+
+    for (i in document.getElementsByClassName('color')) {
+      var d = document.getElementsByClassName('color')[i]
+      if (d.id !== undefined) {
+        obj[d.id] = d.value;
+        execu = `${execu}input.execute("net_replace_color ${d.getAttribute('data-num')} ${d.value}");\n`
+      }
+    }
+
+    document.getElementById('json').value = JSON.stringify(obj);
+    document.getElementById('cmd').value = execu
+  }
+
+  setInterval(toJSON, 1)
+
+</script>
+
 <style>
-textarea{
+textarea {
   width: 49.316%;
   resize: none;
-  height:100px;
+  height: 100px;
 }
 
-button{
+button {
   width: 50%;
-  height:30px;
+  height: 30px;
 }
 
-input[type=color]{
+input[type=color] {
   height: 15px;
 }
 </style>
-
-<script>
-function e(a){
-	return document.getElementById(a).value
-}
-	
-function d(a,b){
-	return `input.execute("net_replace_color ${a} ${e(b)}");\n`
-}
-
-function toJSON(){
-	document.getElementById('json').value = JSON.stringify({
-		'square':   e('square'),
-		'triangle': e('triangle'),
-		'pentagon': e('pentagon'),
-		'crasher':  e('crasher'),
-	});
-	document.getElementById('cmd').value = d(8,'square')+d(9,'triangle')+d(10,'pentagon')+d(11,'crasher');
-}
-
-setInterval(toJSON,1)
-</script>
