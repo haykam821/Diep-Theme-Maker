@@ -33,7 +33,7 @@ Green Shapes:
       var d = document.getElementsByClassName('color')[i]
       if (d.id !== undefined) {
         obj[d.id] = d.value;
-        execu = `${execu}input.execute("net_replace_color ${d.getAttribute('data-num')} ${d.value}");\n`
+        execu = `${execu}input.execute("net_replace_color ${d.getAttribute('data-num')} ${d.value.replace('#','0x')}");\n`
       }
     }
 
